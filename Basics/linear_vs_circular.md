@@ -79,6 +79,7 @@ There is **no wrapping** here. At the edges:
 
 That is why the output becomes $N + M - 1$.
 
+![Circular Convolution](Gemini_Generated_Image_7k51wr7k51wr7k51.png)
 ---
 
 ## Why Circular Convolution Causes Aliasing?
