@@ -16,7 +16,7 @@ $$y[n] = \sum_{k=0}^{N-1} x[k] \cdot h[(n - k) \mod N]$$
 
 Notice the modulo $\mod N$,this is what makes it **circular**.
 
-![Circular Convolution](Gemini_Generated_Image_zetyfjzetyfjzety)
+![Circular Convolution](Gemini_Generated_Image_zetyfjzetyfjzety.png)
 ---
 
 ## How Does the Image Look in Circular Convolution?
