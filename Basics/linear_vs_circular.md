@@ -95,7 +95,7 @@ So the overlapping (due to periodic assumption) **is** the aliasing.
 
 ## How Do We Solve It?
 
-Simple — we expand the image using **Zero Padding**.
+Simple! we expand the image using **Zero Padding**.
 
 The padded length must be:
 
