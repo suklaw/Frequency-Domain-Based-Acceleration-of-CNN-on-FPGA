@@ -4,17 +4,21 @@
 
 ## What is Circular Convolution?
 
-Fourier deals with the signal as a **periodic signal**.  
-So the end of the signal will come back to the beginning.  
+In discrete-time signal processing, circular convolution assumes that the finite-length sequences are periodically extended.
+So when the convolution reaches the end of the signal, it wraps around to the beginning. 
 That is what we call **wrapping**, and this wrapping causes what is called:
 
 > **Aliasing**
 
-### Mathematically (for length N signals):
+### Mathematically (for a discrete-time sequence defined over N samples):
+Let the sequence be:
+$$n=0,1,…,N−1$$
 
+Then circular convolution is:
 $$y[n] = \sum_{k=0}^{N-1} x[k] \cdot h[(n - k) \mod N]$$
 
-Notice the modulo $\mod N$,this is what makes it **circular**.
+Notice the modulo $\mod N$,it orces the indices to wrap around.
+This is what makes it **circular**.
 
 ![Circular Convolution](Gemini_Generated_Image_zetyfjzetyfjzety.png)
 ---
@@ -28,18 +32,18 @@ Because Fourier assumes periodicity:
 
 So the image is treated as an **infinite periodic repetition**, not a finite piece.
 
-DFT does not see the image as a finite matrix. It sees it as:
-
+Mathematically, we are not convolving two finite matrices.
+We are convolving their periodic extensions:
 $$\ldots \text{ periodic image} * \text{periodic kernel} \ldots$$
 
-This causes **overlapping at the boundaries**.
-
+Because of this periodic extension, parts of the convolution result overlap at the boundaries.
 ---
 
 ## Why Do We Get Circular Convolution Using FFT?
 
-Because:
+The DFT of a finite-length sequence corresponds mathematically to the Fourier Series coefficients of its periodic extension.
 
+Therefore, when we compute:
 $$\text{DFT}(x) \cdot \text{DFT}(h)$$
 
 after inverse DFT gives:
@@ -50,7 +54,7 @@ which is **circular convolution**, not linear.
 
 So:
 
-$$\text{DFT}(x) \cdot \text{DFT}(h) = \text{Circular Convolution}$$
+$$IDFT(DFT(x)⋅DFT(h))=x[n]⊛h[n]$$
 
 The reason is again: **Fourier assumes the signal is periodic**.
 
@@ -71,10 +75,12 @@ We call it **Linear Convolution**, where:
 
 $$y[n] = \sum_{k=0}^{M-1} x[k] \cdot h[n - k]$$
 
-There is **no wrapping** here. At the edges:
+There is no modulo operation, so no wrapping occurs.
 
-- We add **zeros**.
-- The signal does **not** wrap.
+At the edges:
+
+- We boarder the image with **zeros**.
+- The signal does **not** wrap or repeat. 
 - The result **expands**.
 
 That is why the output becomes $N + M - 1$.
@@ -88,8 +94,9 @@ We can say:
 
 $$\text{Circular Convolution} = \text{Linear Convolution} + \text{Aliasing}$$
 
-Because the wrapped part **overlaps** with the valid result.  
-So the overlapping (due to periodic assumption) **is** the aliasing.
+Which means the part of the linear convolution that exceeds length $$𝑁$$ wraps around and overlaps with the beginning.
+
+So the overlapping (due to periodic assumption) **is the aliasing**.
 
 ---
 
@@ -116,6 +123,7 @@ We can say:
 ## Final Intuition
 
 - **DFT** always produces circular convolution.
+- The **DFT** works on periodic extensions of finite sequences.
 - **Circular convolution** assumes periodic signals.
 - **Periodicity** causes wrapping.
 - **Wrapping** causes aliasing.
